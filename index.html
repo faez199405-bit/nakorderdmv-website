@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dapur Mommy Order</title>
+
+<style>
+:root{
+  --primary:#7c5c1e;
+  --accent:#d4af37;
+  --bg:#fdfaf3;
+  --card:#ffffff;
+  --border:#e6d8a8;
+  --text:#3a2c0f;
+  --muted:#8a7a4a;
+}
+
+*{ box-sizing:border-box }
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:linear-gradient(#f9fafb,#f1f5f9);
+  margin:0;
+  padding:12px 12px 80px;
+  color:var(--text);
+}
+
+/* ================= HEADER ================= */
+.header-box{
+  background:linear-gradient(135deg,#d4af37,#8f6b22);
+  color:#fff;
+  border-radius:18px;
+  padding:18px 16px;
+  box-shadow:0 14px 30px rgba(212,175,55,.55);
+  text-align:center;
+}
+
+.header-box h1{
+  margin:0 0 10px;
+  font-size:20px;
+  font-weight:900;
+}
+
+.header-box p{
+  margin:6px 0;
+  line-height:1.6;
+}
+
+.highlight{
+  margin:12px 0;
+  font-weight:900;
+}
+
+.wa-link{
+  display:inline-block;
+  margin:10px 0;
+  padding:10px 14px;
+  background:#fff;
+  color:#7c5c1e;
+  border-radius:999px;
+  font-weight:800;
+  text-decoration:none;
+}
+
+/* ================= KATEGORI GRID ================= */
+#kategoriList{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:10px;
+  padding:16px 0;
+}
+
+#kategoriList h3{
+  grid-column:1 / -1;
+  text-align:center;
+  margin:6px 0 10px;
+  font-weight:900;
+  color:var(--primary);
+}
+
+.kategori button{
+  width:100%;
+  padding:12px 6px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:#fff;
+  font-weight:800;
+  font-size:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,.08);
+}
+
+.kategori button:hover{
+  background:var(--primary);
+  color:#fff;
+}
+
+/* ================= MENU ================= */
+.menu{
+  background:linear-gradient(#ffffff,#fff9e8);
+  margin:10px 0;
+  padding:16px;
+  border-radius:18px;
+  border:1px solid var(--border);
+  box-shadow:0 14px 28px rgba(212,175,55,.25);
+}
+
+.qty{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:10px;
+  margin-top:8px;
+}
+
+.qty button{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  border:1px solid var(--border);
+  background:linear-gradient(135deg,#fff3c4,#e6c35c);
+  font-weight:900;
+}
+
+/* ================= CART BUTTON ================= */
+#cartBtn{
+  position:fixed;
+  bottom:18px;
+  right:18px;
+  background:linear-gradient(135deg,#d4af37,#8f6b22);
+  color:#fff;
+  border:none;
+  padding:14px 22px;
+  font-weight:900;
+  border-radius:999px;
+  box-shadow:0 18px 34px rgba(212,175,55,.6);
+  z-index:200;
+}
+
+/* ================= TROLI ================= */
+.hidden{ display:none }
+
+.troli{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  max-width:480px;
+  margin:auto;
+  background:#fff;
+  border-radius:0 0 24px 24px;
+  transform:translateY(-110%);
+  transition:.35s ease;
+  z-index:999;
+  box-shadow:0 20px 40px rgba(0,0,0,.35);
+}
+
+.troli:not(.hidden){
+  transform:translateY(0);
+}
+
+.troli h3{
+  margin:16px;
+  font-weight:900;
+}
+
+#cartItems{
+  margin:0 16px 12px;
+  padding:12px;
+  background:#f9fafb;
+  border-radius:12px;
+  border:1px dashed var(--border);
+}
+
+input,select{
+  width:calc(100% - 32px);
+  margin:6px 16px;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid var(--border);
+}
+
+.total{
+  font-weight:900;
+  font-size:20px;
+  margin:10px 16px;
+}
+
+.troli button{
+  width:calc(100% - 32px);
+  margin:12px 16px 20px;
+  padding:14px;
+  background:#e11d48;
+  color:#fff;
+  border:none;
+  border-radius:14px;
+  font-weight:900;
+}
+
+/* ================= FOOTER ================= */
+.footer{
+  margin-top:24px;
+}
+
+.footer-box{
+  background:linear-gradient(135deg,#8f6b22,#5a430f);
+  color:#fff;
+  padding:20px 16px;
+  border-radius:22px;
+  box-shadow:0 18px 36px rgba(212,175,55,.5);
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <div class="header-box">
+    <h1>🌸 DAPUR MOMMY VENDOR 🌸</h1>
+
+    <p>السلام عليكم🥰</p>
+    <p>اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ✨️</p>
+
+    <p><b>SELAMAT DATANG KE DAPUR MOMMY VENDOR 🥰</b></p>
+
+    <div class="highlight">🌸 LIST RTE AVAILABLE TODAY 🌸</div>
+
+    <a class="wa-link" href="https://chat.whatsapp.com/FDFeAB86hwaFmAMaBcBOxC" target="_blank">
+      👉 Join WhatsApp Group
+    </a>
+
+    <p>📅 <b>Tarikh:</b> <span id="tarikhHariIni"></span></p>
+  </div>
+</div>
+
+<div id="kategoriList"></div>
+<div id="menuList"></div>
+
+<button id="cartBtn" onclick="toggleTroli()">🛒 Troli (<span id="cartCount">0</span>)</button>
+
+<div id="troli" class="troli hidden">
+  <h3>Troli</h3>
+  <div id="cartItems"></div>
+
+  <input id="nama" placeholder="Nama Penuh *">
+  <input id="alamat" placeholder="Alamat (Residen 1 / Prima / dll) *">
+
+  <select id="bayaran">
+    <option value="QR">QR</option>
+    <option value="TUNAI">Tunai</option>
+  </select>
+
+  <p id="cod">Caj COD: RM0.00</p>
+  <p class="total" id="total">Total: RM0.00</p>
+
+  <button onclick="submitOrder()">SAH & HANTAR</button>
+</div>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbwNMsYS6Di-Ce6LOJupwjl5Q-C8KW3WHjK1jxFGyk4IZeMXgNnOredqp_q5Krq8ilvs7g/exec";
+const WHATSAPP = "601172431562";
+
+let menuData = {};
+let cart = {};
+let currentKategori = "";
+
+fetch(API_URL + "?action=menu")
+  .then(r => r.json())
+  .then(res => {
+    if (!res.status || !res.data) {
+      alert("Menu tidak dapat dimuat");
+      return;
+    }
+    menuData = res.data;
+    renderKategori();
+  })
+  .catch(() => alert("Gagal hubungi server"));
+
+function renderKategori() {
+  const wrap = document.getElementById("kategoriList");
+  wrap.innerHTML = "<h3>Kategori</h3>";
+  Object.keys(menuData).forEach(k => {
+    wrap.innerHTML += `<div class="kategori">
+      <button onclick="showMenu('${k}')">${k}</button>
+    </div>`;
+  });
+}
+
+function showMenu(k) {
+  currentKategori = k;
+  const wrap = document.getElementById("menuList");
+  wrap.innerHTML = `<h3>${k}</h3>`;
+
+  menuData[k].forEach(m => {
+    const stok = Number(m.stok) || 0;
+    const inCart = cart[m.menu]?.qty || 0;
+    const baki = stok - inCart;
+
+    const stokText = baki > 0 ? baki : "STOK HABIS";
+    const disablePlus = baki <= 0;
+
+    wrap.innerHTML += `
+      <div class="menu">
+        <b>${m.menu}</b><br>
+        RM ${m.harga.toFixed(2)} | Stok: ${stokText}
+        <div class="qty">
+          <button onclick="updateQty('${m.menu}', -1)">-</button>
+          <span>${inCart}</span>
+          <button onclick="updateQty('${m.menu}', 1)" ${disablePlus ? "disabled":""}>+</button>
+        </div>
+      </div>`;
+  });
+}
+
+
+function updateQty(menu, delta) {
+  const item = Object.values(menuData).flat().find(m => m.menu === menu);
+  if (!item) return;
+
+  const stok = Number(item.stok) || 0;
+  const current = cart[menu]?.qty || 0;
+
+  if (delta > 0 && current >= stok) return;
+
+  if (!cart[menu]) cart[menu] = { menu, harga:item.harga, qty:0 };
+  cart[menu].qty += delta;
+
+  if (cart[menu].qty <= 0) delete cart[menu];
+
+  updateTroli();
+  showMenu(currentKategori);
+}
+
+
+function updateTroli() {
+  const wrap = document.getElementById("cartItems");
+  wrap.innerHTML = "";
+  let subtotal = 0;
+  let qty = 0;
+
+  Object.values(cart).forEach(i => {
+    subtotal += i.harga * i.qty;
+    qty += i.qty;
+    wrap.innerHTML += `- ${i.menu} x${i.qty}<br>`;
+  });
+
+  document.getElementById("cartCount").innerText = qty;
+
+  const alamat = document.getElementById("alamat").value.toLowerCase();
+  const cod = alamat.includes("residen 1") ? 1 : alamat ? 2 : 0;
+
+  document.getElementById("cod").innerText = "Caj COD: RM" + cod.toFixed(2);
+  document.getElementById("total").innerText =
+    "Total: RM" + (subtotal + cod).toFixed(2);
+}
+
+function toggleTroli() {
+  document.getElementById("troli").classList.toggle("hidden");
+}
+
+document.getElementById("alamat").addEventListener("input", updateTroli);
+
+function submitOrder() {
+  if (!Object.keys(cart).length) return alert("Troli kosong");
+
+  const nama = document.getElementById("nama").value.trim();
+  const alamat = document.getElementById("alamat").value.trim();
+  const bayaran = document.getElementById("bayaran").value;
+
+  if (!nama || !alamat) return alert("Nama & alamat wajib");
+
+  const items = Object.values(cart);
+
+  fetch(API_URL, {
+    method:"POST",
+    body:JSON.stringify({
+      action:"order",
+      jenis:"pelanggan",
+      nama, alamat, bayaran, items
+    })
+  })
+  .then(r=>r.json())
+  .then(res=>{
+    if(!res.status) return alert(res.error);
+    location.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(res.data.whatsapp)}`;
+    cart = {};
+    updateTroli();
+  });
+}
+
+(function(){
+  const el = document.getElementById("tarikhHariIni");
+  if(!el) return;
+
+  const hari = new Date();
+  const options = { day:"2-digit", month:"2-digit", year:"numeric" };
+  el.textContent = hari.toLocaleDateString("ms-MY", options);
+})();
+</script>
+
+<footer class="footer">
+  <div class="footer-box">
+    <h3>🚚 MAKLUMAT COD</h3>
+    <p>🛺 COD: 11.30 pagi – 6.30 petang</p>
+    <p>Residen 1 — RM1 | Lain-lain — RM2</p>
+  </div>
+</footer>
+
+</body>
+</html>
