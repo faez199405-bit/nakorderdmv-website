@@ -381,7 +381,7 @@ function submitOrder() {
   })
   .then(r=>r.json())
   .then(res=>{
-    if(!res.status) return alert(res.error);
+    if(!res.status) return alert(res.error || "STOK HABIS");
     location.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(res.data.whatsapp)}`;
     cart = {};
     updateTroli();
@@ -407,4 +407,5 @@ function submitOrder() {
 </footer>
 
 </body>
+
 </html>
